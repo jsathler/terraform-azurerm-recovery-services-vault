@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "default" {
-  name     = "rsv-sample-rg"
+  name     = "rsv-example-rg"
   location = "northeurope"
 }
 
