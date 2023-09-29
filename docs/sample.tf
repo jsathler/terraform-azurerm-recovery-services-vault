@@ -1,22 +1,3 @@
-# Azure Recovery Services Vault Terraform module
-
-Terraform module which creates Azure Recovery Services Vault resources on Azure.
-
-These types of resources are supported:
-
-* [Azure Recovery Services vaults](https://learn.microsoft.com/en-us/azure/backup/backup-azure-recovery-services-vault-overview)
-* [Azure VM backups](https://learn.microsoft.com/en-us/azure/backup/backup-support-matrix-iaas)
-* [SQL Server Backup in Azure VMs](https://learn.microsoft.com/en-us/azure/backup/sql-support-matrix)
-* [SAP HANA databases on Azure VMs](https://learn.microsoft.com/en-us/azure/backup/sap-hana-backup-support-matrix)
-* [Azure file share backup](https://learn.microsoft.com/en-us/azure/backup/azure-file-share-support-matrix)
-
-## Terraform versions
-
-Terraform 1.5.6 and newer.
-
-## Usage
-
-```hcl
 module "prd-rsv" {
   source              = "jsathler/recovery-services-vault/azurerm"
   resource_group_name = azurerm_resource_group.default.name
@@ -47,6 +28,3 @@ module "prd-rsv" {
     full-diff-log-saphana = { workload_type = "SAPHanaDatabase", frequency = "Weekly", retention_weekly = {}, retention_monthly = {}, retention_yearly = {}, differential = { time = "01:00" }, log = {} }
   }
 }
-```
-
-More samples in examples folder
