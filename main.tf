@@ -48,6 +48,14 @@ resource "azurerm_recovery_services_vault" "default" {
   }
 }
 
+#Resource Guard association
+resource "azurerm_recovery_services_vault_resource_guard_association" "default" {
+  count             = var.resource_guard_id == null ? 0 : 1
+  name              = "VaultProxy"
+  vault_id          = azurerm_recovery_services_vault.default.id
+  resource_guard_id = var.resource_guard_id[0]
+}
+
 resource "azurerm_backup_policy_vm" "default" {
   for_each                       = var.vm_policy == null ? {} : { for key, value in var.vm_policy : key => value }
   name                           = "${each.key}-bkpol"

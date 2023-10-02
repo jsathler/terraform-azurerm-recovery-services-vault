@@ -15,7 +15,6 @@ variable "tags" {
   default     = null
 }
 
-
 variable "vault" {
   description = <<DESCRIPTION
   Recovery Services Vault properties
@@ -66,6 +65,23 @@ variable "vault" {
     }), null)
   })
   default = null
+}
+
+/*
+This variable is suposed to be of type string, but because terraform doesn't allow to use count or for_each with 'attributes that cannot be determined until apply' 
+to create resources, I used a list of only one element to bypass this limitation.
+
+In this case both the vault and resource guard association can be created without needing to use the "terraform apply -targert" workarround
+*/
+variable "resource_guard_id" {
+  description = "A list with ONLY one Resource Guard ID to be associated to this RSV. This parameter is optional"
+  type        = list(string)
+  default     = null
+
+  validation {
+    condition     = var.resource_guard_id == null ? true : length(var.resource_guard_id) == 1
+    error_message = "This list should have only one element."
+  }
 }
 
 variable "vm_policy" {
